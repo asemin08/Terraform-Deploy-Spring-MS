@@ -25,6 +25,13 @@ module "aws_route-table" {
   prod-igw      = "${module.aws_ig.subnet_id}"
 }
 
+#Instanciation module security group
+module "aws_sg" {
+  source        = "../module/sg"
+  vpc_id        = "${module.aws_vpc.vpc_id}"
+}
+
+
 # route table association for the public subnets
 resource "aws_route_table_association" "prod-crta-public-subnet-1" {
   subnet_id = "${module.aws_subnet.subnet_id}"
