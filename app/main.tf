@@ -11,3 +11,9 @@ module "aws_subnet" {
   cidr_block    = "${var.cidr_block}"
   availability_zone = "${var.AWS_REGION}a"
 }
+
+#Instanciation module ig
+module "aws_ig" {
+  source        = "../module/ig"
+  vpc_id        = "${module.aws_vpc.vpc_id}"
+}
