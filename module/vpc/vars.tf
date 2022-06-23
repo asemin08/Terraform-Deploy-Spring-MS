@@ -5,6 +5,6 @@ variable "name_vpc" {
 
 variable "cidr_block" {
   type = string
-  default = "192.168.1.0/28"
+  default = null
 }
 

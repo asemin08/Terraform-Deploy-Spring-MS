@@ -10,3 +10,9 @@ variable "auteur" {
   type = string
   default = "allan"
 }
+
+variable "cidr_block" {
+  type = string
+  default = "192.168.1.0/28"
+}
+
