@@ -90,7 +90,9 @@ pipeline {
             }
             steps {
                 dir("app/") {
-                    sh'terraform apply --auto-approve -var=\"AWS_ACCESS_KEY=params.AWS_ACCESS_KEY_ID\" -var=\"AWS_SECRET_KEY=params.AWS_SECRET_ACCESS_KEY\"'
+                    withCredentials([string(credentialsId: 'AWS_ACCESS_KEY_ID', variable: 'accessKey'), string(credentialsId: 'AWS_SECRET_ACCESS_KEY', variable: 'secretKey')]) {
+                        sh'terraform apply --auto-approve -var=\"AWS_ACCESS_KEY=$accessKey\" -var=\"AWS_SECRET_KEY=$secretKey\"'
+                    }
                 }
             }
         }
@@ -101,7 +103,9 @@ pipeline {
             }
             steps {
                 dir("app/") {
-                    sh'terraform destroy --auto-approve -var=\"AWS_ACCESS_KEY=params.AWS_ACCESS_KEY_ID\" -var=\"AWS_SECRET_KEY=params.AWS_SECRET_ACCESS_KEY\"'
+                    withCredentials([string(credentialsId: 'AWS_ACCESS_KEY_ID', variable: 'accessKey'), string(credentialsId: 'AWS_SECRET_ACCESS_KEY', variable: 'secretKey')]) {
+                        sh'terraform destroy --auto-approve -var=\"AWS_ACCESS_KEY=$accessKey\" -var=\"AWS_SECRET_KEY=$secretKey\"'
+                    }
                 }
             }
         }
