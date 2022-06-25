@@ -61,6 +61,16 @@ module "aws-ec2-manager" {
   subnet_id = "${module.aws_subnet.subnet_id}"
   ip_ec2 = "192.168.1.5"
   name = "ms-projet-ec2-manager"
+
+}
+
+# route table association for the public subnets
+resource "null_resource" "set_public_ip_for_manager" {
+    provisioner "local-exec" {
+      command = [
+        "echo ${module.aws-ec2-manager.name_ec2}",
+      ]
+    }
 }
 
 # route table association for the public subnets
