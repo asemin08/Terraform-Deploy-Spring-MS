@@ -50,7 +50,7 @@ module "aws-ec2-workers" {
   name = "ms-projet-ec2-worker-${count.index}"
 }
 
-module "aws-ec2-master" {
+module "aws-ec2-manager" {
   source = "../module/ec2/manager"
   ec2_user = "${var.ec2_user}"
   type_instance = "${var.type_instance}"
