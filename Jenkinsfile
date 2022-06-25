@@ -41,7 +41,7 @@ pipeline {
             }
             steps {
                 dir("app/") {
-                    sh 'ssh-keygen -f projet_key_pair -N \"\"'
+                    sh 'ssh-keygen -f projet_key_pair -N \"\" <<< y'
                 }
             }
         }
