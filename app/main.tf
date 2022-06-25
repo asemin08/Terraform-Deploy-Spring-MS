@@ -47,7 +47,7 @@ module "aws-ec2" {
   sg_id = "${module.aws_sg.sg-ssh-http-id}"
   subnet_id = "${module.aws_subnet.subnet_id}"
   ip_ec2 = "192.168.1.${6 + count.index}"
-  name = "${module.aws-ec2.name_ec2}-${count.index}"
+  name = "ms-projet-ec2-${count.index}"
 }
 
 # route table association for the public subnets
