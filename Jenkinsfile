@@ -10,11 +10,11 @@ pipeline {
         AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
         GIT_PATH = "https://github.com/asemin08/Terraform-Deploy-Spring-MS.git"
         GIT_BRANCH = "main"
-
-
     }
 
-     stage('récupération du code source et récupération de la bonne branch') {
+    stages {
+
+        stage('récupération du code source et récupération de la bonne branch') {
 	        when {
                 not {
                     equals expected: true, actual: params.destroy
@@ -31,9 +31,9 @@ pipeline {
                     ]]
                 ])
             }
-     }
+        }
 
-     stage('Création clé ssh') {
+        stage('Création clé ssh') {
 	        when {
                 not {
                     equals expected: true, actual: params.destroy
@@ -44,56 +44,59 @@ pipeline {
                     sh 'ssh-keygen -N -f projet_key_pair'
                 }
             }
-     }
+        }
 
-     stage('Terraform init') {
-	        when {
+        stage('Terraform init') {
+            when {
                 not {
                     equals expected: true, actual: params.destroy
                 }
             }
             steps {
                 dir("app/") {
-                        sh'terraform init'
+                    sh'terraform init'
                 }
             }
-     }
+        }
 
-     stage('Terraform plan') {
-	        when {
+        stage('Terraform plan') {
+            when {
                 not {
                     equals expected: true, actual: params.destroy
                 }
             }
             steps {
                 dir("app/") {
-                        sh'terraform plan --auto-approve -var=\"AWS_ACCESS_KEY=${params.AWS_ACCESS_KEY_ID}\" -var=\"AWS_SECRET_KEY=${params.AWS_SECRET_ACCESS_KEY}\"'
+                    sh'terraform plan --auto-approve -var=\"AWS_ACCESS_KEY=${params.AWS_ACCESS_KEY_ID}\" -var=\"AWS_SECRET_KEY=${params.AWS_SECRET_ACCESS_KEY}\"'
                 }
             }
-     }
+        }
 
-     stage('Terraform apply') {
-	        when {
+        stage('Terraform apply') {
+            when {
                 not {
                     equals expected: true, actual: params.destroy
                 }
             }
             steps {
                 dir("app/") {
-                        sh'terraform apply --auto-approve -var=\"AWS_ACCESS_KEY=${params.AWS_ACCESS_KEY_ID}\" -var=\"AWS_SECRET_KEY=${params.AWS_SECRET_ACCESS_KEY}\"'
+                    sh'terraform apply --auto-approve -var=\"AWS_ACCESS_KEY=${params.AWS_ACCESS_KEY_ID}\" -var=\"AWS_SECRET_KEY=${params.AWS_SECRET_ACCESS_KEY}\"'
                 }
             }
-     }
-     stage('Terraform Destroy') {
+        }
+
+        stage('Terraform destroy') {
             when {
                 equals expected: true, actual: params.destroy
             }
-
             steps {
-                dir("Terraform/app") {
-                    sh "terraform destroy --auto-approve -var=\"AWS_ACCESS_KEY=${params.AWS_ACCESS_KEY_ID}\" -var=\"AWS_SECRET_KEY=${params.AWS_SECRET_ACCESS_KEY}\""
+                dir("app/") {
+                    sh'terraform destroy --auto-approve -var=\"AWS_ACCESS_KEY=${params.AWS_ACCESS_KEY_ID}\" -var=\"AWS_SECRET_KEY=${params.AWS_SECRET_ACCESS_KEY}\"'
                 }
             }
-     }
+        }
+
+
+    }
 
 }
