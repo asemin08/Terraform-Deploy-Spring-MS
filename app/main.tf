@@ -36,9 +36,9 @@ module "aws_key_pair" {
   source        = "../module/key_pair"
   public_path_ssh_key= "${var.public_path_ssh_key}"
 }
-module "aws-ec2-slave" {
+module "aws-ec2-workers" {
   count = 3
-  source = "../module/ec2"
+  source = "../module/ec2/workers"
   ec2_user = "${var.ec2_user}"
   type_instance = "${var.type_instance}"
   ami = "${var.id_amazon_ami}"
@@ -47,11 +47,11 @@ module "aws-ec2-slave" {
   sg_id = "${module.aws_sg.sg-ssh-http-id}"
   subnet_id = "${module.aws_subnet.subnet_id}"
   ip_ec2 = "192.168.1.${6 + count.index}"
-  name = "ms-projet-ec2-${count.index}-slave"
+  name = "ms-projet-ec2-worker-${count.index}"
 }
 
 module "aws-ec2-master" {
-  source = "../module/ec2"
+  source = "../module/ec2/manager"
   ec2_user = "${var.ec2_user}"
   type_instance = "${var.type_instance}"
   ami = "${var.id_amazon_ami}"
@@ -60,22 +60,7 @@ module "aws-ec2-master" {
   sg_id = "${module.aws_sg.sg-ssh-http-id}"
   subnet_id = "${module.aws_subnet.subnet_id}"
   ip_ec2 = "192.168.1.5"
-  name = "ms-projet-ec2-master"
-
-  provisioner "remote-exec" {
-
-        inline = [
-          "sudo yum install -y docker",
-          "sudo systemctl start docker",
-        ]
-      }
-
-      connection {
-        host = "192.168.1.5"
-        type = "ssh"
-        user = "${var.ec2_user}"
-        private_key = "${file("${var.private_ssh_key}")}"
-      }
+  name = "ms-projet-ec2-manager"
 }
 
 # route table association for the public subnets
