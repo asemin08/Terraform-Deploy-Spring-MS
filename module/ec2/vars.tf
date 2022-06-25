@@ -40,6 +40,6 @@ variable "ip_ec2" {
 
 variable "name" {
   type = string
-  default = "front-ec2"
+  default = "ms-projet-ec2"
 }
 

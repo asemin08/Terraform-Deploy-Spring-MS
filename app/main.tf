@@ -36,10 +36,9 @@ module "aws_key_pair" {
   source        = "../module/key_pair"
   public_path_ssh_key= "${var.public_path_ssh_key}"
 }
-
-#Instanciation module key_pair
-module "aws_front_ec2" {
-  source        = "../module/ec2/front-ec2"
+module "aws-ec2" {
+  count = 4
+  source = "../module/ec2"
   ec2_user = "${var.ec2_user}"
   type_instance = "${var.type_instance}"
   ami = "${var.id_amazon_ami}"
@@ -47,7 +46,7 @@ module "aws_front_ec2" {
   public_ssh_key = "${module.aws_key_pair.key_pair_id}"
   sg_id = "${module.aws_sg.sg-ssh-http-id}"
   subnet_id = "${module.aws_subnet.subnet_id}"
-  ip_ec2 = "192.168.1.6"
+  ip_ec2 = "192.168.1.${6 + count.index}"
 }
 
 # route table association for the public subnets

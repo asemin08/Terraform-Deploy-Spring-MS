@@ -1,4 +1,4 @@
-resource "aws_instance" "front-ec2" {
+resource "aws_instance" "enable-ec2" {
   ami = "${var.ami}"
   instance_type = "${var.type_instance}"
 
@@ -14,7 +14,8 @@ resource "aws_instance" "front-ec2" {
 
   provisioner "remote-exec" {
     inline = [
-      "ls",
+      "sudo yum install -y docker",
+      "sudo systemctl start docker",
     ]
   }
 
@@ -26,6 +27,6 @@ resource "aws_instance" "front-ec2" {
   }
 
   tags = {
-    name = "${var.name}"
+    Name = "${var.name}"
   }
 }
