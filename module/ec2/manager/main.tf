@@ -14,7 +14,7 @@ resource "aws_instance" "enable-ec2" {
 
   provisioner "local-exec" {
 
-    inline = [
+    command = [
       "echo ${self.public_ip}",
     ]
   }
