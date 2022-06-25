@@ -66,6 +66,7 @@ module "aws-ec2-manager" {
 
 # route table association for the public subnets
 resource "null_resource" "set_public_ip_for_manager" {
+    depends_on = [module.aws-ec2-manager]
     provisioner "local-exec" {
       command = [
         "echo ${module.aws-ec2-manager.name_ec2}",
