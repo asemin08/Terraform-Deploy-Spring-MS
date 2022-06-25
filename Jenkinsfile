@@ -76,7 +76,7 @@ pipeline {
             steps {
                 dir("app/") {
                     withCredentials([string(credentialsId: 'AWS_ACCESS_KEY_ID', variable: 'accessKey'), string(credentialsId: 'AWS_SECRET_ACCESS_KEY', variable: 'secretKey')]) {
-                        sh'terraform plan -var=\"AWS_ACCESS_KEY=$accessKey\" -var=\"AWS_SECRET_KEY=$secretKey\" --auto-approve '
+                        sh'terraform plan -var=\"AWS_ACCESS_KEY=$accessKey\" -var=\"AWS_SECRET_KEY=$secretKey\"'
                     }
                 }
             }
