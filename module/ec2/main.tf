@@ -13,6 +13,7 @@ resource "aws_instance" "enable-ec2" {
   private_ip = "${var.ip_ec2}"
 
   provisioner "remote-exec" {
+
     inline = [
       "sudo yum install -y docker",
       "sudo systemctl start docker",
@@ -20,7 +21,7 @@ resource "aws_instance" "enable-ec2" {
   }
 
   connection {
-    host = "${self.public_ip}"
+    host = "192.168.1.6"
     type = "ssh"
     user = "${var.ec2_user}"
     private_key = "${file("${var.private_ssh_key}")}"
