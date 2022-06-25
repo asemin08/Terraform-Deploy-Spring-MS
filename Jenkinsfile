@@ -41,11 +41,13 @@ pipeline {
             }
             steps {
                 dir("app/") {
-                    if (fileExists('projet_key_pair')) {
-                        sh 'rm projet_key_pair'
-                    }
-                    if (fileExists('projet_key_pair.pub')) {
-                        sh 'rm projet_key_pair.pub'
+                    script {
+                        if (fileExists('projet_key_pair')) {
+                            sh 'rm projet_key_pair'
+                        }
+                        if (fileExists('projet_key_pair.pub')) {
+                            sh 'rm projet_key_pair.pub'
+                        }
                     }
                     sh 'ssh-keygen -f projet_key_pair -N \"\"'
                 }
