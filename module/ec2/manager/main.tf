@@ -12,12 +12,12 @@ resource "aws_instance" "enable-ec2" {
   key_name = "${var.public_ssh_key}"
   private_ip = "${var.ip_ec2}"
 
-  provisioner "local-exec" {
-
-    command = [
-      "echo ${self.public_ip}",
-    ]
-  }
+#  provisioner "local-exec" {
+#
+#    command = [
+#      "echo ${self.public_ip}",
+#    ]
+#  }
 
 
   tags = {
