@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     parameters {
-        booleanParam(name: 'destroy', defaultValue: false, description: 'Voulez vous détruire votre instance Terraform en cours ?'
+        booleanParam(name: 'destroy', defaultValue: false, description: 'Voulez vous détruire votre instance Terraform en cours ?')
     }
 
     environment {
