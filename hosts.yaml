@@ -6,11 +6,9 @@ manager:
   vars:
     ansible_connection: local
   hosts: 127.0.0.1
-worker:
-  hosts:
-      workers1:
-        ansible_host: 192.168.1.6
-      workers2:
-        ansible_host: 192.168.1.7
-      worker3:
-        ansible_host: 192.168.1.8
+worker1:
+  hosts: 192.168.1.6
+worker2:
+  hosts: 192.168.1.7
+worker3:
+  hosts: 192.168.1.8

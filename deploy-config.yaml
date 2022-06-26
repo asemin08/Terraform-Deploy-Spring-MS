@@ -1,0 +1,9 @@
+- hosts: worker1
+  become: true
+  tasks:
+    - name: "launch docker container"
+      docker_container:
+        name: ms-config
+        image: verkeur08/ms-config:latest
+        ports: 
+          - "8888:8888"

@@ -1,7 +1,12 @@
----
 - hosts: all
   become: true
   pre_tasks:
+    - name: Update all packages
+      yum:
+        name: '*'
+        state: latest
+        update_only: yes
+
     - name: Ensure a list of yum packages are installed
       yum:
         name: "{{ packages }}"
@@ -14,18 +19,29 @@
     - name: Enable Some packages from amazon-linux-extras packages
       shell: "amazon-linux-extras enable docker"
 
+    - name: clean yum metadata cache
+      command: yum clean metadata
+      args:
+        warn: false
+
+    - name: Ensure a list of yum packages are installed
+      yum:
+        name: "{{ packages }}"
+        state: latest
+        update_cache: yes
+      vars:
+        packages:
+        - docker
+
     - name: Enable Docker CE service at startup
       service:
         name: docker
         state: started
         enabled: yes
+
     - name: give the privilège to ec2-user
       user:
         name: ec2-user
         append: yes
         groups:
           - docker
-- hosts: manager
-  tasks:
-    - name: Create swarm manager
-      shell: docker swarm init 
