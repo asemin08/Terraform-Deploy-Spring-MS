@@ -4,7 +4,7 @@ all:
     ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
 manager:
   vars:
-    ansible_connection: loca
+    ansible_connection: local
   hosts: 127.0.0.1
 worker:
   hosts:
