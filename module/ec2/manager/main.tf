@@ -15,4 +15,19 @@ resource "aws_instance" "enable-ec2" {
   tags = {
     Name = "${var.name}"
   }
+
+  provisioner "remote-exec" {
+    inline = [
+      "sudo yum update -y",
+      "sudo amazon-linux-extras list | grep ansible2",
+      "sudo amazon-linux-extras enable ansible2",
+      "sudo yum install -y ansible",
+    ]
+    connection {
+      type        = "ssh"
+      user        = "${var.ec2_user}"
+      private_key = file("${var.private_ssh_key}")
+      host        = "${self.public_ip}"
+    }
+  }
 }
