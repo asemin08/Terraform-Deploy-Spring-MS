@@ -2,6 +2,23 @@
 - hosts: all
   become: true
   pre_tasks:
+    - name: Ensure a list of yum packages are installed
+      yum:
+        name: "{{ packages }}"
+        state: latest
+        update_cache: yes
+      vars:
+        packages:
+        - amazon-linux-extras
+
+    - name: Enable Some packages from amazon-linux-extras packages
+      shell: "amazon-linux-extras enable docker"
+
+    - name: Enable Docker CE service at startup
+      service:
+        name: docker
+        state: started
+        enabled: yes
     - name: give the privilège to ec2-user
       user:
         name: ec2-user
