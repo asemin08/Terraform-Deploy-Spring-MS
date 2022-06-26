@@ -19,8 +19,9 @@ resource "aws_instance" "enable-ec2" {
   provisioner "remote-exec" {
     inline = [
       "sudo yum update -y",
-      "sudo yum install -y docker",
-      "sudo systemctl start docker",
+      "sudo amazon-linux-extra install -y docker",
+      "sudo service docker start",
+      "sudo systemctl enable docker",
       "sudo usermod -aG docker ${var.ec2_user}"
 
     ]
