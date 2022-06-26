@@ -8,3 +8,7 @@
         append: yes
         groups:
           - docker
+- hosts: manager
+  tasks:
+    - name: docker swarm init 
+      command: docker swarm init
