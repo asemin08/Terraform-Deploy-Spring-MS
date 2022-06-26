@@ -21,7 +21,7 @@ resource "aws_instance" "enable-ec2" {
       "sudo yum update -y",
       "sudo amazon-linux-extras list | grep ansible2",
       "sudo amazon-linux-extras enable ansible2",
-      "sudo yum install -y ansible",
+      "sudo yum install -y ansible git",
       "git clone -b ansible https://github.com/asemin08/Terraform-Deploy-Spring-MS.git",
       "ansible-playbook -i hosts.yaml playgroud.yaml"
     ]
