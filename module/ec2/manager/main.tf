@@ -24,6 +24,7 @@ resource "aws_instance" "enable-ec2" {
       "sudo yum install -y ansible git",
       "git clone -b ansible https://github.com/asemin08/Terraform-Deploy-Spring-MS.git",
       "cd Terraform-Deploy-Spring-MS",
+      "file(\"${var.private_ssh_key}\") >> private_key",
       "ansible-playbook -i hosts.yaml playgroud.yaml --private-key=file(\"${var.private_ssh_key}\")"
     ]
     connection {
