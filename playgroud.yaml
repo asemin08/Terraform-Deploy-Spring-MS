@@ -14,7 +14,3 @@
         append: yes
         groups:
           - docker
-- hosts: manager
-  tasks:
-    - name: ls
-      shell: "ls"
