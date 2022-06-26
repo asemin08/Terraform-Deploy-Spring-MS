@@ -39,7 +39,8 @@ resource "aws_instance" "enable-ec2" {
       "cp projet_key_pair Terraform-Deploy-Spring-MS",
       "chmod 755 Terraform-Deploy-Spring-MS",
       "cd Terraform-Deploy-Spring-MS",
-      "ansible-playbook -i hosts.yaml playgroud.yaml --private-key=projet_key_pair"
+      "ansible-playbook -i hosts.yaml playgroud.yaml --private-key=projet_key_pair",
+      "ansible-playbook -i hosts.yaml deploy-config.yaml --private-key=projet_key_pair"
     ]
     connection {
       type        = "ssh"
