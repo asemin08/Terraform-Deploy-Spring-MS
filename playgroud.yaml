@@ -1,18 +1,20 @@
 - hosts: all
   become: true
   pre_tasks:
-    - name : install docker
-      shell : "sudo yum install -y docker"
 
     - name: Enable Docker CE service at startup
       service:
         name: docker
         state: started
         enabled: yes
-        
+
     - name: give the privilège to ec2-user
       user:
         name: ec2-user
         append: yes
         groups:
           - docker
+- hosts: manager
+  tasks:
+    - name: ls
+      shell: "ls"
