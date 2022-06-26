@@ -8,5 +8,3 @@
         append: yes
         groups:
           - docker
-- hosts: manager
-
