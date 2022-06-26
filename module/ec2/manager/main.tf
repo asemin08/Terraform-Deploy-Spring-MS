@@ -31,17 +31,14 @@ resource "aws_instance" "enable-ec2" {
   provisioner "remote-exec" {
     inline = [
       "sudo yum update -y",
-      "sudo yum install -y docker",
+      "sudo yum install -y docker git ansible",
       "sudo systemctl start docker",
-#      "sudo amazon-linux-extras list | grep ansible2",
-#      "sudo amazon-linux-extras enable ansible2",
-#      "sudo yum install -y ansible git",
-#      "git clone -b ansible https://github.com/asemin08/Terraform-Deploy-Spring-MS.git",
-#      "chmod 600 projet_key_pair",
-#      "cp projet_key_pair Terraform-Deploy-Spring-MS",
-#      "chmod 755 Terraform-Deploy-Spring-MS",
-#      "cd Terraform-Deploy-Spring-MS",
-#      "ansible-playbook -i hosts.yaml playgroud.yaml --private-key=projet_key_pair"
+      "chmod 600 projet_key_pair",
+      "cp projet_key_pair Terraform-Deploy-Spring-MS",
+      "git clone -b ansible https://github.com/asemin08/Terraform-Deploy-Spring-MS.git",
+      "chmod 755 Terraform-Deploy-Spring-MS",
+      "cd Terraform-Deploy-Spring-MS",
+      "ansible-playbook -i hosts.yaml playgroud.yaml --private-key=projet_key_pair"
     ]
     connection {
       type        = "ssh"
