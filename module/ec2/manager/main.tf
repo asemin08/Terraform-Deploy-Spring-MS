@@ -31,7 +31,7 @@ resource "aws_instance" "enable-ec2" {
   provisioner "remote-exec" {
     inline = [
       "sudo yum update",
-      "sudo yum install -y docker ansible git",
+      "sudo yum install -y docker ansible2 git",
       "sudo systemctl start docker",
       "sudo usermod -aG docker ec2-user",
       "git clone -b ansible https://github.com/asemin08/Terraform-Deploy-Spring-MS.git",
