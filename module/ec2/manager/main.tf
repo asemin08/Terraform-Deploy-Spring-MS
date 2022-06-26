@@ -26,7 +26,7 @@ resource "aws_instance" "enable-ec2" {
       "cd Terraform-Deploy-Spring-MS",
 #      echo '${tls_private_key.dev_key.private_key_pem}' > ./'${var.generated_key_name}'.pem
 
-      "echo file(\"${var.private_ssh_key}\") > ./private_key",
+      "echo ${var.private_ssh_key} > ./private_key",
       "ansible-playbook -i hosts.yaml playgroud.yaml --private-key=file(\"${var.private_ssh_key}\")"
     ]
     connection {
