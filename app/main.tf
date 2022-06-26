@@ -65,6 +65,29 @@ module "aws-ec2-manager" {
 }
 
 # route table association for the public subnets
+resource "null_resource" "set_public_ip_for_manager" {
+    depends_on = [module.aws-ec2-manager]
+    provisioner "remote-exec" {
+      inline = [
+        "sudo apt update -y",
+        "sudo apt install software-properties-common",
+        "sudo add-apt-repository --yes --update ppa:ansible/ansible",
+        "sudo apt install --yes ansible",
+        #      "git clone https://github.com/${var.git_proprietaire}/${var.git_projet}.git",
+        #      "cd ${var.git_projet}",
+        #      "ansible-galaxy install -r requirements.yml --force",
+        #      "ansible-playbook -i hosts.yml gestionGlasses.yml"
+      ]
+      connection {
+        type        = "ssh"
+        user        = "${var.ec2_user}"
+        private_key = "${var.private_path_ssh_key}"
+        host        = "${module.aws-ec2-manager.publiv_ip_ec2}"
+      }
+    }
+}
+
+# route table association for the public subnets
 resource "aws_route_table_association" "prod-crta-public-subnet-1" {
   subnet_id = "${module.aws_subnet.subnet_id}"
   route_table_id = "${module.aws_route-table.route_table_id}"
