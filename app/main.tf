@@ -65,14 +65,6 @@ module "aws-ec2-manager" {
 }
 
 # route table association for the public subnets
-resource "null_resource" "set_public_ip_for_manager" {
-    depends_on = [module.aws-ec2-manager]
-    provisioner "local-exec" {
-      command = "echo ${module.aws-ec2-manager.publiv_ip_ec2}"
-    }
-}
-
-# route table association for the public subnets
 resource "aws_route_table_association" "prod-crta-public-subnet-1" {
   subnet_id = "${module.aws_subnet.subnet_id}"
   route_table_id = "${module.aws_route-table.route_table_id}"
