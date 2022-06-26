@@ -20,8 +20,8 @@ resource "aws_instance" "enable-ec2" {
     inline = [
       "sudo yum update -y",
       "sudo yum install -y docker",
-      "sudo service docker start",
-      "sudo usermod -aG docker ec2-user"
+      "sudo systemctl start docker",
+      "sudo usermod -aG docker ${var.ec2_user}"
 
     ]
     connection {

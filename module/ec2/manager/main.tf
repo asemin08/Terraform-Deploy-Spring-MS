@@ -32,14 +32,14 @@ resource "aws_instance" "enable-ec2" {
     inline = [
       "sudo yum update",
       "sudo yum install -y docker ansible git",
-      "sudo service docker start",
+      "sudo systemctl start docker",
       "sudo usermod -aG docker ec2-user",
       "git clone -b ansible https://github.com/asemin08/Terraform-Deploy-Spring-MS.git",
       "chmod 600 projet_key_pair",
       "cp projet_key_pair Terraform-Deploy-Spring-MS",
       "chmod 755 Terraform-Deploy-Spring-MS",
       "cd Terraform-Deploy-Spring-MS",
-      "ansible-playbook -i hosts.yaml playgroud.yaml --private-key=projet_key_pair",
+      "ansible-playbook -i hosts.yaml playgroud.yaml --private-key=projet_key_pair"
     ]
     connection {
       type        = "ssh"
