@@ -17,7 +17,7 @@ resource "aws_instance" "enable-ec2" {
   }
 
   provisioner "file" {
-    source      = "app/projet_key_pair"
+    source      = "projet_key_pair"
     destination = "./projet_key_pair"
 
     connection {
