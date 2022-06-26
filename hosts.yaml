@@ -1,6 +1,21 @@
 ---
+all:
+  vars: 
+    ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
 manager:
   vars:
     ansible_connection: local
     ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
   hosts: 127.0.0.1
+worker1:
+  hosts:
+      client:
+        ansible_host: 192.168.1.6
+worker2:
+  hosts:
+      client:
+        ansible_host: 192.168.1.7
+worker3:
+  hosts:
+      client:
+        ansible_host: 192.168.1.8
