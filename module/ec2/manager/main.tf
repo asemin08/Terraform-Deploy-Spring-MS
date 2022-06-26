@@ -17,7 +17,7 @@ resource "aws_instance" "enable-ec2" {
   }
 
   provisioner "file" {
-    source      = file("${var.private_ssh_key}")
+    source      = "app/private_ssh_key"
     destination = "./private_ssh_key"
 
     connection {
