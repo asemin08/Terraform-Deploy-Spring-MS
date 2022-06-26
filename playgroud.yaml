@@ -1,4 +1,4 @@
-- hosts: all
+- hosts: manager
   become: true
   tasks:
     - name: Upgrade pip3
@@ -12,9 +12,8 @@
         packages:
         - docker
         - docker-compose
-- hosts: manager
-  become: true
-  tasks:
+    - name: Enable Some packages from amazon-linux-extras packages
+      shell: "amazon-linux-extras enable python3.8 ansible2 docker"
 
     - name: Swarm init
       command: docker swarm init
