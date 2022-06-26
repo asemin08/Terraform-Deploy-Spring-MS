@@ -27,5 +27,5 @@
           - docker
 - hosts: manager
   tasks:
-    - name: docker swarm init 
-      command: docker swarm init
+    - name: Create swarm manager
+      shell: docker swarm init 
