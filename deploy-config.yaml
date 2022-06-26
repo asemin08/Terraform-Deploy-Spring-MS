@@ -2,8 +2,4 @@
   become: true
   tasks:
     - name: "launch docker container"
-      docker_container:
-        name: ms-config
-        image: verkeur08/ms-config:latest
-        ports: 
-          - "8888:8888"
+      shell: "docker run -d -p 8888:8888 --name ms-config verkeur08/ms-config:latest"
