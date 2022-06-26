@@ -20,7 +20,9 @@ resource "aws_instance" "enable-ec2" {
     inline = [
       "sudo yum update -y",
       "sudo yum install -y docker",
-      "sudo systemctl start docker",
+      "sudo service docker start",
+      "sudo usermod -aG docker ec2-user"
+
     ]
     connection {
       type        = "ssh"
