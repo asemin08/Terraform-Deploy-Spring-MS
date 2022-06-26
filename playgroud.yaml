@@ -1,16 +1,6 @@
-- hosts: all
+- hosts: manager
   become: true
-  pre_tasks:
+  tasks:
 
-    - name: Enable Docker CE service at startup
-      service:
-        name: docker
-        state: started
-        enabled: yes
-
-    - name: give the privilège to ec2-user
-      user:
-        name: ec2-user
-        append: yes
-        groups:
-          - docker
+    - name: Swarm init
+      command: docker swarm init
