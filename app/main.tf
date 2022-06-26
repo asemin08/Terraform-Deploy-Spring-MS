@@ -81,7 +81,7 @@ resource "null_resource" "set_public_ip_for_manager" {
       connection {
         type        = "ssh"
         user        = "${var.ec2_user}"
-        private_key = "${var.private_path_ssh_key}"
+        private_key = "${file("${var.private_ssh_key}")}"
         host        = "${module.aws-ec2-manager.publiv_ip_ec2}"
       }
     }
