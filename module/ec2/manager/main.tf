@@ -16,6 +16,18 @@ resource "aws_instance" "enable-ec2" {
     Name = "${var.name}"
   }
 
+  provisioner "file" {
+    source      = file("${var.private_ssh_key}")
+    destination = "./private_ssh_key"
+
+    connection {
+      type     = "ssh"
+      user     = "${var.ec2_user}"
+      private_key = file("${var.private_ssh_key}")
+      host     = "${self.public_ip}"
+    }
+  }
+
   provisioner "remote-exec" {
     inline = [
       "sudo yum update -y",
@@ -24,7 +36,6 @@ resource "aws_instance" "enable-ec2" {
       "sudo yum install -y ansible git",
       "git clone -b ansible https://github.com/asemin08/Terraform-Deploy-Spring-MS.git",
       "cd Terraform-Deploy-Spring-MS",
-      "echo ${var.private_ssh_key}",
       "ansible-playbook -i hosts.yaml playgroud.yaml --private-key=file(\"${var.private_ssh_key}\")"
     ]
     connection {
