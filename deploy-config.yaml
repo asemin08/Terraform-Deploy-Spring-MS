@@ -1,5 +1,5 @@
-- hosts: worker1
+- hosts: manager
   become: true
   tasks:
     - name: "launch docker container"
-      shell: "docker run -d -p 8888:8888 --name ms-config verkeur08/ms-config:latest"
+      shell: "docker stack deploy --compose-file docker-compose.yaml myprojet"
