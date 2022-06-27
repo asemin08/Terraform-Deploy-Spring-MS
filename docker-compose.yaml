@@ -5,13 +5,13 @@ services:
     container_name: ms-config
     restart: always
     ports:
-      - "8888:8080"
+      - "80:8888"
   ms-register:
     container_name: ms-register
     restart: always
     image: verkeur08/ms-register:latest
     ports:
-      - "8761:8080"
+      - "80:8761"
     depends_on:
       - ms-config
   ms-gateway:
@@ -19,7 +19,7 @@ services:
     restart: always
     image: verkeur08/ms-gateway:latest
     ports:
-      - "8080:8080"
+      - "80:8080"
     depends_on:
       - ms-register
   ms-api:
@@ -27,7 +27,7 @@ services:
     restart: always
     image: verkeur08/ms-api:latest
     ports:
-      - "8889:8080"
+      - "80:8889"
     depends_on:
       - ms-gateway
   ms-front:
