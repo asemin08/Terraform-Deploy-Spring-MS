@@ -67,7 +67,8 @@
 
     - name: Show Master Token
       debug: var=master_token.stdout
-- host: workers
+      
+- hosts: workers
   vars:
       token: "{{ hostvars[groups['masters'][0]]['worker_token']['stdout'] }}"
       master: "{{ hostvars[groups['masters'][0]]['inventory_hostname'] }}"
