@@ -6,14 +6,14 @@ services:
     restart: always
     ports:
       - "8888:8888"
-  # ms-register:
-  #   container_name: ms-register
-  #   restart: always
-  #   image: verkeur08/ms-register:latest
-  #   ports:
-  #     - "8761:8761"
-  #   depends_on:
-  #     - ms-config
+  ms-register:
+    container_name: ms-register
+    restart: always
+    image: verkeur08/ms-register:latest
+    ports:
+      - "8761:8761"
+    depends_on:
+      - ms-config
   ms-gateway:
     container_name: ms-register
     restart: always
