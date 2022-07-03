@@ -52,7 +52,7 @@
         - docker
 
     - name: Swarm init
-      command: docker swarm init
+      command: docker swarm init --advertise-addr 192.168.1.5
     
     - name: Get Worker Token
       command: docker swarm join-token worker -q
