@@ -2,37 +2,30 @@ version: '3.3'
 services:
   ms-config:
     image: verkeur08/ms-config:latest
-    container_name: ms-config
-    restart: always
     ports:
       - "8888:8888"
   ms-register:
-    container_name: ms-register
-    restart: always
     image: verkeur08/ms-register:latest
     ports:
       - "8761:8761"
     depends_on:
       - ms-config
+    environment:
+      - SPRING_APPLICATION_NAME=microservice-register
+      - SPRING_CONFIG_URL=http://192.168.1.5:8888
   ms-gateway:
-    container_name: ms-register
-    restart: always
     image: verkeur08/ms-gateway:latest
     ports:
       - "8080:8080"
     depends_on:
       - ms-register
   ms-api:
-    container_name: ms-api
-    restart: always
     image: verkeur08/ms-api:latest
     ports:
       - "8889:8889"
     depends_on:
       - ms-gateway
   ms-front:
-    container_name: ms-api
-    restart: always
     image: verkeur08/angular-test:latest
     ports:
       - "80:80"
